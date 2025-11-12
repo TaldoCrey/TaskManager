@@ -18,3 +18,7 @@
   
   --font-family-poppins: 'Poppins', system-ui, sans-serif;
 }
+
+body {
+  @apply min-h-screen bg-bg font-family-poppins
+}
