@@ -133,6 +133,7 @@ function App() {
       //tl.id = LIDRef.current;
     
       let finalList = [...lists];
+      tl.tasklist =[...finalList[TListId].tasklist];
       finalList[TListId] = tl; 
       setLists(l => l = finalList);
     }
