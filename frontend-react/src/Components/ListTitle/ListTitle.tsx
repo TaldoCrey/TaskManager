@@ -10,9 +10,10 @@ type menuProperties = {
 
 type props = {
     title: string
+    listMenuHandler: (data: string) => void;
 }
 
-function ListTitle({title}: props) {
+function ListTitle({title, listMenuHandler}: props) {
 
     const [menu, setMenu]= useState<menuProperties>({visible: false, x:0, y:0});
 
@@ -28,8 +29,8 @@ function ListTitle({title}: props) {
     }
 
     const handleOptionClick = (option: string) => {
-        console.log(`Opção: ${option}`)
         handleCloseMenu();
+        listMenuHandler(option);
     }
 
 

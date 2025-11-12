@@ -1,0 +1,12 @@
+@import "tailwindcss";
+
+@layer {
+    .list {
+        @apply border-1 border-[#4e4e4e] w-[477px] px-[16px] pt-[16px] pb-[24px]
+        rounded-[12px]
+    }
+
+    .tasks {
+        @apply flex flex-col space-y-[12px]
+    }
+}

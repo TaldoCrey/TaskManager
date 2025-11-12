@@ -3,7 +3,7 @@ import CloseTaskBtn from "../CloseTaskBtn/CloseTaskBtn";
 import TaskInput from "../Inputs/TaskInput";
 import PriorityDropdown from "../PriorityDropdown/PriorityDropdown";
 import TextBox from "../TextBox/TextBox";
-import type { Task } from "../types";
+import type { Task, TaskList } from "../types";
 import { useState } from "react";
 
 type props = {

@@ -1,6 +1,7 @@
 import styles from "./TaskCard.module.css"
 import React, {useEffect, useState, useRef} from 'react'
 import type {Task, TaskList} from "../types.ts"
+import { useDraggable } from "@dnd-kit/core";
 
 type menuProperties = {
     visible: boolean;
@@ -11,9 +12,10 @@ type menuProperties = {
 type props = {
     taskinfo: Task,
     menuChoice: (data: string) => void;
+    finished: (data: boolean) => void;
 }
 
-function TaskCard({taskinfo, menuChoice}: props) {
+function TaskCard({taskinfo, menuChoice, finished}: props) {
 
     const [isLate, setLateState] = useState(false);
     const [taskCardStyle, setTKStyle] = useState(styles.taskcard);
@@ -21,12 +23,19 @@ function TaskCard({taskinfo, menuChoice}: props) {
     const [priority, setPriority] = useState(taskinfo.priority);
     const [priorityTagStyle, setPTStyle] = useState(styles.lowprioritytag);
     const [menu, setMenu] = useState<menuProperties>({visible: false, x: 0, y: 0});
-    const [isFinished, setFinishState] = useState(false);
+    const [isFinished, setFinishState] = useState(taskinfo.finished);
     const [finishSVG, setFinishSVG] = useState("/FinishTaskButton.svg")
     const [dateSVG, setDateSVG] = useState("/dateicon.svg");
     const [taskdata, setTaskData] = useState<Task>(taskinfo);
     
     const menuRef = useRef<HTMLDivElement>(null);
+
+
+    const {attributes, listeners, setNodeRef, transform} = useDraggable({id: taskinfo.id});
+
+    const DragStyle = transform ? {
+        transform: `translate(${transform.x}px, ${transform.y}px)`
+    } : undefined;
 
     const handleContextMenu = (e: React.MouseEvent) => {
         e.preventDefault();
@@ -80,7 +89,8 @@ function TaskCard({taskinfo, menuChoice}: props) {
              } else {
                 setTKStyle(styles.finishedtaskcard);
              }
-            setFinishSVG("/FinishedTaskButton.svg")
+            setFinishSVG("/FinishedTaskButton.svg");
+            finished(true);
         }
     }, [isLate, isFinished]);
 
@@ -104,7 +114,8 @@ function TaskCard({taskinfo, menuChoice}: props) {
 
     return(
         <div>
-            <div className={taskCardStyle} onContextMenu={handleContextMenu}>
+            <div className={taskCardStyle} onContextMenu={handleContextMenu} 
+            ref={setNodeRef} {...listeners} {...attributes} style={DragStyle}>
                 <div className="w-[429px] h-[40px] flex justify-between items-center">
                     <div className={priorityTagStyle}>
                         {priority}

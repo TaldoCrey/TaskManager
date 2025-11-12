@@ -6,13 +6,14 @@ import { useState } from "react";
 
 type props = {
     formhandler: (newList: TaskList | null, exit_call:number) => void;
+    placeholder: string
 }
 
-function NewList({formhandler} : props) {
+function NewList({formhandler, placeholder = "Qual o nome da sua lista de afazeres?"} : props) {
 
     const nameHandler = (data: string) => {
         
-        let newList = {title: data, tasklist: []} as TaskList
+        let newList = {title: data, id:-1, tasklist: []} as TaskList
 
         formhandler(newList, 0);
     }
@@ -23,7 +24,7 @@ function NewList({formhandler} : props) {
                 <CloseTaskBtn/>
             </div>
             <div className="w-[474px] h-[606px] flex flex-col space-y-[10px] items-center">
-                <ListInput sendBack={nameHandler}/>
+                <ListInput placeholder={placeholder} sendBack={nameHandler}/>
                 <hr className="bg-white"/>
                 <hr className="border-0.5 border-bgLight w-[450px]"/>
                 <button className="flex space-x-[8px] items-center justify-center bg-lowPrio 

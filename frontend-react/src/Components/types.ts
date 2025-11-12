@@ -10,5 +10,6 @@ export type Task = {
 
 export type TaskList = {
   title: string,
+  id: number,
   tasklist: Task[]
 }
