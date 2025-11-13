@@ -11,11 +11,9 @@ type menuProperties = {
 
 type props = {
     taskinfo: Task,
-    menuChoice: (data: string) => void;
-    finished: (data: boolean) => void;
 }
 
-function TaskCard({taskinfo, menuChoice, finished}: props) {
+function TaskCard({taskinfo}: props) {
 
     const [isLate, setLateState] = useState(false);
     const [taskCardStyle, setTKStyle] = useState(styles.taskcard);
@@ -90,7 +88,6 @@ function TaskCard({taskinfo, menuChoice, finished}: props) {
                 setTKStyle(styles.finishedtaskcard);
              }
             setFinishSVG("/FinishedTaskButton.svg");
-            finished(true);
         }
     }, [isLate, isFinished]);
 
@@ -139,19 +136,19 @@ function TaskCard({taskinfo, menuChoice, finished}: props) {
             {menu.visible && (
                 <div ref={menuRef} style={{position: 'fixed', top:`${menu.y}px`, left: `${menu.x}px`, zIndex:1000}} className={styles.menu}>
                     <ul className="py-[8px] px-[1px]">
-                        <li onClick={() => {handleCloseMenu(); menuChoice('Editar')}}
+                        <li onClick={() => {handleCloseMenu(); }}
                         className="w-fill h-[40px] text-white text-[16px] flex items-center
                         duration-300 ease-out hover:bg-bgLight">
                             <img src="/editicon.svg" className="w-[16px] h-[16px] mr-[5px] ml-[10px]"></img>
                             Editar
                         </li>
-                        <li onClick={() => {handleCloseMenu(); menuChoice('Duplicar')}}
+                        <li onClick={() => {handleCloseMenu(); }}
                         className="w-fill h-[40px] text-white text-[16px] flex items-center
                         duration-300 ease-out hover:bg-gray">
                             <img src="/dupeicon.svg" className="w-[16px] h-[16px] mr-[5px] ml-[10px]"></img>
                             Duplicar
                         </li>
-                        <li onClick={() => {handleCloseMenu(); menuChoice('Deletar')}}
+                        <li onClick={() => {handleCloseMenu(); }}
                         className="w-fill h-[40px] text-[#AF0505] text-[16px] flex items-center
                         duration-300 ease-out hover:bg-bgLight">
                             <img src="/delicon.svg" className="w-[16px] h-[16px] mr-[5px] ml-[10px]"></img>

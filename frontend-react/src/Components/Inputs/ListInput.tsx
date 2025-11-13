@@ -3,22 +3,17 @@ import styles from "./Inputs.module.css"
 
 type props = {
     placeholder: string
-    sendBack: (data: string) => void;
 }
 
-function ListInput({placeholder, sendBack}: props) {
+function ListInput({placeholder}: props) {
 
     const [value, setValue] = useState('');
-
-    const handleValue = () => {
-        sendBack(value);
-    }
 
     return(
         <input className="w-[445px] h-[45px] rounded-[12px] p-[8px] border-1 border-[#4e4e4e] outline-none
         text-white text-[16px] duration-300 ease-out focus:border-white hover:border-white" 
         placeholder={placeholder} onChange={(e) => setValue(e.target.value)}
-        onBlur={handleValue}/>
+        />
     );
 }
 

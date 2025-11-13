@@ -6,11 +6,7 @@ import TextBox from "../TextBox/TextBox";
 import type { Task, TaskList } from "../types";
 import { useState } from "react";
 
-type props = {
-    formhandler: (data: Task | null, exit_call: number) => void;
-}
-
-function NewTask({formhandler}: props) {
+function NewTask() {
 
     const [date, setDate] = useState(new Date());
     const [nameState, setNS] = useState("")
@@ -36,19 +32,14 @@ function NewTask({formhandler}: props) {
         setDS(data);
     }
 
-    const associateFormData = () => {
-        let tsk: Task = {name: nameState, description: descState, priority: priorityState, date, id: -1, finished: false};
-        formhandler(tsk, 0);
-    }
-
     return(
         <div className={styles.form}>
-            <div onClick={() => formhandler(null, 1)}>
+            <div >
                 <CloseTaskBtn/>
             </div>
             
             <div className="w-[474px] h-[606px] flex flex-col space-y-[10px] items-center">
-                <TaskInput placeholder="Qual tarefa você precisa realizar?" sendBack={handleInput}/>
+                <TaskInput placeholder="Qual tarefa você precisa realizar?" />
                 <hr className="border-0.5 border-bgLight w-[450px]"/>
                 <div className="flex flex-row justify-between w-[450px] items-center">
                     <p className="text-white font-semibold">Data de conclusão:</p>
@@ -56,15 +47,15 @@ function NewTask({formhandler}: props) {
                 </div>
                 <div className="flex flex-row justify-between w-[450px] items-center">
                     <p className="text-white font-semibold">Prioridade:</p>
-                    <PriorityDropdown CurrPriority="Baixa Prioridade" sendBack={handleDrop}/>
+                    <PriorityDropdown CurrPriority="Baixa Prioridade" />
                 </div>
                 <hr className="border-0.5 border-bgLight w-[450px]"/>
                 <p className="text-white font-semibold">Descrição:</p>
-                <TextBox text="" sendBack={handleText}/>
+                <TextBox text="" />
                 <hr className="border-0.5 border-bgLight w-[450px]"/>
                 <button className="flex space-x-[8px] items-center justify-center bg-lowPrio 
                 w-[150px] h-[36px] rounded-[4px] duration-300 ease-out hover:brightness-75"
-                onClick={associateFormData}>
+                >
                     <img src="/confirmicon.svg"></img>
                     <p className="text-lowPrioText">Criar Task</p>
                 </button>

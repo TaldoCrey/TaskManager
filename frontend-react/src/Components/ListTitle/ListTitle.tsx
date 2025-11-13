@@ -10,10 +10,9 @@ type menuProperties = {
 
 type props = {
     title: string
-    listMenuHandler: (data: string) => void;
 }
 
-function ListTitle({title, listMenuHandler}: props) {
+function ListTitle({title}: props) {
 
     const [menu, setMenu]= useState<menuProperties>({visible: false, x:0, y:0});
 
@@ -26,11 +25,6 @@ function ListTitle({title, listMenuHandler}: props) {
 
     const handleCloseMenu = () => {
         setMenu(m => m = {...m, visible: false});
-    }
-
-    const handleOptionClick = (option: string) => {
-        handleCloseMenu();
-        listMenuHandler(option);
     }
 
 
@@ -66,13 +60,13 @@ function ListTitle({title, listMenuHandler}: props) {
             {menu.visible && (
                 <div ref={menuRef} style={{position: 'fixed', top:`${menu.y}px`, left: `${menu.x}px`, zIndex:1000}} className={styles.menu}>
                     <ul className="py-[8px] px-[1px]">
-                        <li onClick={() => handleOptionClick('Renomear')}
+                        <li
                         className="w-fill h-[40px] text-white text-[16px] flex items-center
                         duration-300 ease-out hover:bg-bgLight">
                             <img src="/editicon.svg" className="w-[16px] h-[16px] mr-[5px] ml-[10px]"></img>
                             Renomear
                         </li>
-                        <li onClick={() => handleOptionClick('Deletar')}
+                        <li
                         className="w-fill h-[40px] text-[#AF0505] text-[16px] flex items-center
                         duration-300 ease-out hover:bg-bgLight">
                             <img src="/delicon.svg" className="w-[16px] h-[16px] mr-[5px] ml-[10px]"></img>

@@ -9,10 +9,9 @@ type dropProperties = {
 
 type props = {
     CurrPriority: string,
-    sendBack: (data:string) => void;
 }
 
-function PriorityDropdown({CurrPriority = "Baixa Prioridade", sendBack}: props) {
+function PriorityDropdown({CurrPriority = "Baixa Prioridade"}: props) {
 
     const [priority, setPriority] = useState(CurrPriority);
     const [priorityTagStyle, setPTStyle] = useState(styles.lowprioritytag);
@@ -86,16 +85,16 @@ function PriorityDropdown({CurrPriority = "Baixa Prioridade", sendBack}: props) 
                 <div ref={dropRef} style={{position: 'fixed', top:`${dropdown.y}px`, left: `${dropdown.x}px`, zIndex:1000}}
                 className="border-1 border-gray rounded-[4px]">
                     <ul>
-                        <div className={styles.dropitem} onClick={() => {handleOptionClick('Baixa Prioridade'); sendBack('Baixa Prioridade');}}>
+                        <div className={styles.dropitem} onClick={() => {handleOptionClick('Baixa Prioridade');}}>
                         <li className={styles.lowprioritytag}>Baixa Prioridade</li>
                         </div>
-                        <div className={styles.dropitem} onClick={() => {handleOptionClick('Média Prioridade'); sendBack('Média Prioridade');}}>
+                        <div className={styles.dropitem} onClick={() => {handleOptionClick('Média Prioridade');}}>
                         <li className={styles.midprioritytag}>Média Prioridade</li>
                         </div>
-                        <div className={styles.dropitem} onClick={() => {handleOptionClick('Alta Prioridade'); sendBack('Alta Prioridade');}}>
+                        <div className={styles.dropitem} onClick={() => {handleOptionClick('Alta Prioridade');}}>
                         <li className={styles.highprioritytag}>Alta Prioridade</li>
                         </div>
-                        <div className={styles.dropitem} onClick={() => {handleOptionClick('Altíssima Prioridade'); sendBack('Altíssima Prioridade');}}>
+                        <div className={styles.dropitem} onClick={() => {handleOptionClick('Altíssima Prioridade');}}>
                         <li className={styles.veryhighprioritytag}>Altíssima Prioridade</li>
                         </div>
                     </ul>

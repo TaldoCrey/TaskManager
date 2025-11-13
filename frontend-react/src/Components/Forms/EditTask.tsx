@@ -13,10 +13,9 @@ type BtnProps = {
 
 type props = {
     taskinfo: Task,
-    formhandler: (newTask: Task | null, exit_call: number) => void;
 }
 
-function EditTask({taskinfo, formhandler}: props) {
+function EditTask({taskinfo}: props) {
 
     const [taskInfo, setTaskInfo] = useState<Task>(taskinfo)
     const [nameState, setNS] = useState(taskinfo.name)
@@ -27,11 +26,6 @@ function EditTask({taskinfo, formhandler}: props) {
 
     const handleDrop = (data: string) => {
         setPS(p => p = data);
-    }
-
-    const associateFormInfo = () => {
-        formhandler({name: nameState, description: descState, date: dateState, id: taskinfo.id, priority:priorityState, finished:taskinfo.finished}, 0)
-
     }
 
     const handleInput = (data:string) => {
@@ -51,11 +45,11 @@ function EditTask({taskinfo, formhandler}: props) {
 
     return(
         <div className={styles.form}>
-            <div onClick={() => formhandler(null, 1)}>
+            <div>
             <CloseTaskBtn/>
             </div>
             <div className="w-[474px] h-[606px] flex flex-col space-y-[10px] items-center">
-                <TaskInput placeholder={nameState} sendBack={handleInput}/>
+                <TaskInput placeholder={nameState}/>
                 <hr className="border-0.5 border-bgLight w-[450px]"/>
                 <div className="flex flex-row justify-between w-[450px] items-center">
                     <p className="text-white font-semibold">Data de conclusão: {taskinfo.date.getDay()}/{taskinfo.date.getMonth()}/{taskinfo.date.getFullYear()}</p>
@@ -63,15 +57,15 @@ function EditTask({taskinfo, formhandler}: props) {
                 </div>
                 <div className="flex flex-row justify-between w-[450px] items-center">
                     <p className="text-white font-semibold">Prioridade:</p>
-                    <PriorityDropdown CurrPriority={taskinfo.priority} sendBack={handleDrop}/>
+                    <PriorityDropdown CurrPriority={taskinfo.priority} />
                 </div>
                 <hr className="border-0.5 border-bgLight w-[450px]"/>
                 <p className="text-white font-semibold">Descrição:</p>
-                <TextBox text={taskinfo.description} sendBack={handleTA}/>
+                <TextBox text={taskinfo.description} />
                 <hr className="border-0.5 border-bgLight w-[450px]"/>
                 <button className="flex space-x-[8px] items-center justify-center bg-lowPrio 
                 w-[150px] h-[36px] rounded-[4px] duration-300 ease-out hover:brightness-75"
-                onClick={associateFormInfo}>
+                >
                     <img src="/confirmicon.svg"></img>
                     <p className="text-lowPrioText">Editar Task</p>
                 </button>

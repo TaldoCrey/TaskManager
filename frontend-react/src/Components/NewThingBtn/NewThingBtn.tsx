@@ -4,7 +4,7 @@ type properties = {
     label: string
 }
 
-function NewTaskBtn({label}: properties) {
+function NewThingBtn({label}: properties) {
 
     return(
         <button className="w-[152px] h-[44px] rounded-[4px] p-[10px] space-x-[10px] flex flex-row items-center
@@ -16,4 +16,4 @@ function NewTaskBtn({label}: properties) {
 
 }
 
-export default NewTaskBtn
+export default NewThingBtn
