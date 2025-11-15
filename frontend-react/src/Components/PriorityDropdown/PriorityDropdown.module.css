@@ -37,7 +37,7 @@
 
     .veryhighprioritytag {
         @apply py-[4px] px-[12px] bg-veryHighPrio text-veryHighPrioText rounded-[4px] font-semibold
-        w-[160px] h-[28px] text-[13px]
+        w-[170px] h-[28px] text-[13px]
     }
 
     .dropitem {

@@ -1,6 +1,7 @@
 import styles from "./ListTitle.module.css"
 import OptionButton from "../OptionsButton/OptionsButton";
-import React, { useEffect, useRef, useState } from "react";
+import React, { useContext, useEffect, useRef, useState } from "react";
+import { taskListContext } from "../contexts";
 
 type menuProperties = {
     visible: boolean,
@@ -10,13 +11,17 @@ type menuProperties = {
 
 type props = {
     title: string
+    listId: string
 }
 
-function ListTitle({title}: props) {
+function ListTitle({title, listId}: props) {
 
     const [menu, setMenu]= useState<menuProperties>({visible: false, x:0, y:0});
 
     const menuRef = useRef<HTMLDivElement>(null);
+
+    const taskContext = useContext(taskListContext);
+    const {setState} = taskContext;
 
     const handleContextMenu = (e: React.MouseEvent) => {
         e.preventDefault();
@@ -62,13 +67,13 @@ function ListTitle({title}: props) {
                     <ul className="py-[8px] px-[1px]">
                         <li
                         className="w-fill h-[40px] text-white text-[16px] flex items-center
-                        duration-300 ease-out hover:bg-bgLight">
+                        duration-300 ease-out hover:bg-bgLight" onClick={() => setState("EDIT_LIST", listId)}>
                             <img src="/editicon.svg" className="w-[16px] h-[16px] mr-[5px] ml-[10px]"></img>
                             Renomear
                         </li>
                         <li
                         className="w-fill h-[40px] text-[#AF0505] text-[16px] flex items-center
-                        duration-300 ease-out hover:bg-bgLight">
+                        duration-300 ease-out hover:bg-bgLight" onClick={() => setState("DEL_LIST", {listId, listName: title})}>
                             <img src="/delicon.svg" className="w-[16px] h-[16px] mr-[5px] ml-[10px]"></img>
                             Deletar
                         </li>
