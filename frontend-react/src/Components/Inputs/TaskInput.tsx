@@ -14,7 +14,7 @@ function TaskInput({placeholder}: props) {
     const {handleInfo} = iContext;
 
     return(
-        <input className="w-[445px] h-[65px] rounded-[12px] p-[8px] border-1 border-[#4e4e4e] outline-none
+        <input className="w-[445px] max-md:w-[370px] h-[65px] rounded-[12px] p-[8px] border-1 border-[#4e4e4e] outline-none
         text-white text-[20px] duration-300 ease-out focus:border-white hover:border-white
         font-bold" onChange={(e) => setText(e.target.value)}
         placeholder={placeholder} onBlur={() => handleInfo(text, "TaskInput")}/>

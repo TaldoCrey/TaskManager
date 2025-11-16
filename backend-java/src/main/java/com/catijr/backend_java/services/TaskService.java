@@ -25,7 +25,7 @@ public class TaskService {
     }
 
     public UUID createTask(CreateTaskDTO createTaskDTO) {
-        var list = listRepository.findById(UUID.fromString(createTaskDTO.listId())).orElseThrow(() -> new ResponseStatusException(HttpStatus.BAD_REQUEST));
+        var list = listRepository.findById(UUID.fromString(createTaskDTO.listId())).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
 
         var task = new Task(
             createTaskDTO.taskname(),
@@ -49,7 +49,7 @@ public class TaskService {
     public void updateTaskById(String taskId, UpdateTaskDTO updateTaskDTO) {
         var task = taskRepository.findById(UUID.fromString(taskId)).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
     
-        if (updateTaskDTO.taskName() != null) {
+        if (updateTaskDTO.taskName() != null && updateTaskDTO.taskName().trim() != "") {
             task.setTaskName(updateTaskDTO.taskName());
         }
 
@@ -70,14 +70,14 @@ public class TaskService {
         }
 
         if (updateTaskDTO.listId() != null) {
-            var list = listRepository.findById(UUID.fromString(updateTaskDTO.listId())).orElseThrow(() -> new ResponseStatusException(HttpStatus.BAD_REQUEST));
+            var list = listRepository.findById(UUID.fromString(updateTaskDTO.listId())).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
             task.setTaskList(list);
         }
 
         taskRepository.save(task);
     }
 
-    public void deleteTaksById(String taskId) {
+    public void deleteTaskById(String taskId) {
         var id = UUID.fromString(taskId);
         if (taskRepository.existsById(id)) {
             taskRepository.deleteById(id);

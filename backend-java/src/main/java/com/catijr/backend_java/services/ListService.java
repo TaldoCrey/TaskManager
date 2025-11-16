@@ -25,7 +25,7 @@ public class ListService {
 
     public UUID createList(CreateListDTO createListDTO) {
         var listExists = listRepository.findByListName(createListDTO.listname());
-        if (listExists.isPresent() || createListDTO.listname() == null) {
+        if (listExists.isPresent() || createListDTO.listname() == null || createListDTO.listname().trim() == "") {
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST);
         }
 
@@ -54,11 +54,8 @@ public class ListService {
     public void updateListById(String listId, UpdateListDTO updateListDTO) {
         var list = listRepository.findById(UUID.fromString(listId)).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
 
-        System.out.println(list);
-        System.out.println(updateListDTO);
-
-        if (updateListDTO.listname() != null) {
-            if(listRepository.findByListName(updateListDTO.listname()).isPresent()) {
+        if (updateListDTO.listname() != null ) {
+            if(listRepository.findByListName(updateListDTO.listname()).isPresent() || updateListDTO.listname().trim() == "") {
                 throw new ResponseStatusException(HttpStatus.BAD_REQUEST);
             }
 

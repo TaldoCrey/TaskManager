@@ -21,13 +21,19 @@
 
 @layer {
     .form {
-        @apply flex w-[608px] min-h-screen border-l-1 border-white pt-[40px] pl-[40px] space-x-[12px]
-        z-[1000] bg-bg
+        @apply flex flex-col w-[600px] max-md:w-[101vw] min-h-[99vh] border-l-1 border-white pt-[40px] pl-[40px]
+        max-md:pl-[20px] space-y-[12px] max-md:space-x-[40px] items-center 
+        z-[2000] bg-bg
     }
 
     .datebutton {
-        @apply w-[136px] h-[38px] border-none rounded-[4px] bg-[#E0E0E0]
+        @apply w-[140px] h-[28px] border-1 border-white rounded-[4px] brightness-300
         mt-[4px] font-semibold text-[#646570] text-[13px] flex flex-row items-center
-        duration-200 ease-out hover:brightness-75
+        space-x-[8px] px-2
     }
+
+}
+
+.react-datepicker-wrapper {
+    width: auto !important
 }

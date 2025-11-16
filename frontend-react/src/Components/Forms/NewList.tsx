@@ -3,7 +3,9 @@ import type { TaskList } from "../types.ts"
 import ListInput from "../Inputs/ListInput";
 import CloseTaskBtn from "../CloseTaskBtn/CloseTaskBtn.tsx";
 import { useContext, useState } from "react";
-import { createListContext, inputContext, updateListContext, type InputContext } from "../contexts.ts";
+import { createListContext, inputContext, modalContext, updateListContext, type InputContext, type ModalContext } from "../contexts.ts";
+import { AnimatePresence, motion } from "framer-motion";
+import DenialModal from "../Modals/DenialModal.tsx";
 
 type props = {
     placeholder: string
@@ -14,6 +16,9 @@ function NewList({placeholder = "Qual o nome da sua lista de afazeres?", isEdit}
 
     const cListContext = useContext(createListContext);
     const eListContext = useContext(updateListContext);
+    const [denial, setDenialModal] = useState(false);
+    const [modalText, setModalText] = useState("");
+
 
     const [listTitle, setTitle] = useState("");
 
@@ -26,6 +31,10 @@ function NewList({placeholder = "Qual o nome da sua lista de afazeres?", isEdit}
         } 
     }
 
+    const modalDenContextValue: ModalContext = {
+        setState: setDenialModal
+    }
+
     const nullReturn = () => {
         if (isEdit) {
             setList(null)
@@ -35,6 +44,13 @@ function NewList({placeholder = "Qual o nome da sua lista de afazeres?", isEdit}
     }
 
     const assembleInfo = () => {
+        if (listTitle.trim() == "") {
+            setModalText("O Nome da lista é obrigatório!");
+            setDenialModal(true);
+            return;
+            return;
+        }
+
         if (isEdit) {
             let editList: TaskList = {title: listTitle, id: list.id, tasklist: [...list.tasklist]}
             setList(editList);
@@ -45,16 +61,17 @@ function NewList({placeholder = "Qual o nome da sua lista de afazeres?", isEdit}
     }
 
     return(
+        <>
         <div className={styles.form}>
-            <div onClick={nullReturn} className="w-fit h-fit">
+            <div onClick={nullReturn} className="w-[105%] max-md:w-[90%] h-fit items-start">
                 <CloseTaskBtn/>
             </div>
-            <div className="w-[474px] h-[606px] flex flex-col space-y-[10px] items-center">
+            <div className="w-[474px] max-md:w-[200px] h-[606px] flex flex-col space-y-[10px] items-center">
                 <inputContext.Provider value={inputContextValue}>
                 <ListInput placeholder={placeholder}/>
                 </inputContext.Provider>
                 <hr className="bg-white"/>
-                <hr className="border-0.5 border-bgLight w-[450px]"/>
+                <hr className="border-0.5 border-bgLight w-[450px] max-md:w-[250px]"/>
                 <button className="flex space-x-[8px] items-center justify-center bg-lowPrio 
                 w-[150px] h-[36px] rounded-[4px] duration-300 ease-out hover:brightness-75"
                 onClick={assembleInfo}>
@@ -63,6 +80,16 @@ function NewList({placeholder = "Qual o nome da sua lista de afazeres?", isEdit}
                 </button>
             </div>
         </div>
+        <AnimatePresence>
+            {denial && (
+            <modalContext.Provider value={modalDenContextValue}>
+            <motion.div className="absolute top-[20px] left-1/2 -translate-x-1/2" initial={{y: '-100%'}} animate={{y: '0'}} exit={{y: '-100%'}} transition={{type: 'tween', duration:0.5, ease: 'easeOut'}}>
+                <DenialModal text={modalText} />
+            </motion.div>
+            </modalContext.Provider>
+            )}
+        </AnimatePresence>
+        </>
     );
 }
 

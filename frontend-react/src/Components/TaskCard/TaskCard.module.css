@@ -21,28 +21,28 @@
 
 @layer {
     .taskcard {
-        @apply w-[445px] h-[221px] border-1 border-[#4E4E4E]
+        @apply w-[445px] max-md:w-[360px] h-[221px] border-1 border-[#4E4E4E]
         rounded-[8px] hover:border-white flex flex-col space-y-[12px]
         py-[8px] px-[8px]
         duration-300 ease-out hover:bg-linear-to-r from-[#232323] to-[#393939]
     }
 
     .latetaskcard {
-        @apply w-[445px] h-[221px] border-1 border-[#4E4E4E]
+        @apply w-[445px] max-md:w-[360px] h-[221px] border-1 border-[#4E4E4E]
         rounded-[8px] hover:border-white flex flex-col space-y-[12px]
         py-[8px] px-[8px]
         duration-300 ease-out hover:bg-linear-to-r from-[#553434] to-[#381D1D]
     }
 
     .finishedtaskcard {
-        @apply w-[445px] h-[221px] border-1 border-[#4E4E4E]
+        @apply w-[445px] max-md:w-[360px] h-[221px] border-1 border-[#4E4E4E]
         rounded-[8px] hover:border-white flex flex-col space-y-[12px]
         py-[8px] px-[8px] brightness-[0.60]
         duration-300 ease-out hover:bg-linear-to-r from-[#232323] to-[#393939]
     }
 
     .finishedlatetaskcard {
-        @apply w-[445px] h-[221px] border-1 border-[#4E4E4E]
+        @apply w-[445px] max-md:w-[360px] h-[221px] border-1 border-[#4E4E4E]
         rounded-[8px] hover:border-white flex flex-col space-y-[12px]
         py-[8px] px-[8px] brightness-[0.60]
         duration-300 ease-out hover:bg-linear-to-r from-[#553434] to-[#381D1D]
@@ -84,13 +84,13 @@
     }
 
     .taskcardlock {
-        @apply w-[445px] h-[221px] border-1
+        @apply w-[445px] max-md:w-[360px] h-[221px] border-1
         rounded-[8px] border-white flex flex-col space-y-[12px]
         py-[8px] px-[8px] bg-linear-to-r from-[#232323] to-[#393939]
     }
 
     .latetaskcardlock {
-        @apply w-[445px] h-[221px] border-1 border-white
+        @apply w-[445px] max-md:w-[360px] h-[221px] border-1 border-white
         rounded-[8px] flex flex-col space-y-[12px] bg-linear-to-r from-[#553434] to-[#381D1D]
         py-[8px] px-[8px]
     }

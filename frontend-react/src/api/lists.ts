@@ -1,7 +1,7 @@
 import axios from "axios";
 import type { TaskList } from "../Components/types";
 
-const API_URL = "http://localhost:8080/v1/lists"
+const API_URL = "http://192.168.15.9:8080/v1/lists"
 
 export async function getLists() {
     try {

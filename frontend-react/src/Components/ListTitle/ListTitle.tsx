@@ -25,7 +25,7 @@ function ListTitle({title, listId}: props) {
 
     const handleContextMenu = (e: React.MouseEvent) => {
         e.preventDefault();
-        setMenu({visible: true, x:e.clientX, y:e.clientY});
+        setMenu({visible: true, x:e.clientX - 100, y:e.clientY});
     }
 
     const handleCloseMenu = () => {
@@ -54,7 +54,7 @@ function ListTitle({title, listId}: props) {
 
     return(
         <div>
-            <div className="w-[445px] h-[48px] flex justify-between items-center py-[8px]"
+            <div className="w-[445px] max-md:w-[350px] h-[48px] flex justify-between items-center py-[8px]"
              onContextMenu={handleContextMenu}>
                 <h2 className="text-white font-semibold text-[19px]">{title}</h2>
                 <div onClick={handleContextMenu}>

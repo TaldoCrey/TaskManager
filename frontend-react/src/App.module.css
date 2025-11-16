@@ -21,11 +21,11 @@
 
 @layer {
     .appbody {
-        @apply px-[80px] py-[80px]
+        @apply px-[80px] py-[80px] max-md:px-[10px] max-md:py-[40px] overflow-auto
     }
 
     .tasklist {
-        @apply flex flex-row space-x-[24px] overflow-x-auto
+        @apply flex flex-row max-md:flex-col space-x-[24px] max-md:space-y-[24px] overflow-x-auto
     }
 
 }

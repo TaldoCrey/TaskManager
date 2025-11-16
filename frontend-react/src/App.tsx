@@ -7,7 +7,7 @@ import React, { useEffect, useRef, useState, useContext, createContext } from "r
 import type { Task, TaskList } from "./Components/types.ts"
 import styles from "./App.module.css"
 import {motion, AnimatePresence} from 'framer-motion'
-import { DndContext, useDroppable, type DragEndEvent } from "@dnd-kit/core"
+import { DndContext, useDroppable, type DragEndEvent, useSensor, useSensors, PointerSensor } from "@dnd-kit/core"
 import TaskListComponent from "./Components/TaskList/TaskList.tsx"
 import * as taskAPI from "./api/tasks.ts"
 import * as listAPI from "./api/lists.ts"
@@ -29,6 +29,7 @@ import { CgCode, CgOpenCollective } from "react-icons/cg"
 import SuccessModal from "./Components/Modals/SuccessModal.tsx"
 import ConfirmModal from "./Components/Modals/ConfirmModal.tsx"
 import DenialModal from "./Components/Modals/DenialModal.tsx"
+import TaskPanel from "./Components/TaskPanel/TaskPanel.tsx"
 
 
 
@@ -48,6 +49,7 @@ function App() {
   const [confirmText, setConfirmText] = useState("");
   const [answer, setAnswer] = useState(false);
   const [opData, setOpData] = useState<{operation:string, i:any}>({operation: "", i:""});
+  const [isTPanel, setTPanel] = useState(false);
 
   const TaskListID = useRef("");
   const TaskID = useRef("");
@@ -67,6 +69,9 @@ function App() {
 
           return {...list, tasklist:[...list.tasklist, t]}
         }));
+      } else {
+        setModalText("Erro ao criar Task!");
+        setDenialModal(true);
       }
       
     }
@@ -142,6 +147,7 @@ function App() {
           break;
         }
         case "DEL_TASK":
+          setTPanel(false);
           setConfirmText(`Tem certeza que deseja deletar a tarefa: ${i.taskName}?`)
           setConfirmation(true);
           setOpData({operation: s, i});
@@ -154,6 +160,14 @@ function App() {
         case "EDIT_LIST":
           setIsLEdit(true);
           setTargetList(lists.filter((list) => list.id === i)[0])
+          break;
+        case "EXIT":
+          setTPanel(false);
+          break;
+        case "OPEN_TP":
+          setTPanel(true);
+          setTargetTask(i.task);
+          TaskListID.current = i.listIndex;
           break;
       }
     }
@@ -234,6 +248,15 @@ function App() {
       setAnswer(answ);
     }
   }
+
+  const pointerSensor = useSensor(PointerSensor, {
+    activationConstraint: {
+      delay: 80,
+      tolerance: 10
+    }
+  });
+
+  const sensors = useSensors(pointerSensor);
 
   const handleDragEnd = async (event: DragEndEvent) => {
     const {active, over} = event;
@@ -387,13 +410,13 @@ function App() {
   }, [])
 
   return ( 
-    <div className="min-h-screen bg-bg font-family-poppins">
+    <div className="min-h-[100vh] w-[100vw] bg-bg font-family-poppins overflow-hidden">
       <div>
         <Navbar />
       </div>
       <div className={styles.appbody}>
         <ul className={styles.tasklist}>
-          <DndContext onDragEnd={handleDragEnd}>
+          <DndContext onDragEnd={handleDragEnd} sensors={sensors}>
             {
             lists.map((List: TaskList, Index: number) => {
               return <li key={List.id}>
@@ -403,7 +426,7 @@ function App() {
                 </li>
             })}
           </DndContext>
-          <li className="h-fit" onClick={() => setNList(true)}>
+          <li className="h-fit w-fit" onClick={() => setNList(true)}>
             <NewThingBtn label="Nova Lista"/>
           </li>
         </ul>
@@ -441,7 +464,7 @@ function App() {
       <AnimatePresence>
       {isLEdit && (
         <updateListContext.Provider value={updateListContextValue}>
-        <motion.div className="absolute top-0 right-0" initial={{x: '100%'}} animate={{x: '0'}} exit={{x: '100%'}} transition={{type: 'tween', duration:0.5, ease: 'easeOut'}}>
+        <motion.div className="absolute top-0 right-0" initial={{x: '100vw'}} animate={{x: '0'}} exit={{x: '100vw'}} transition={{type: 'tween', duration:0.5, ease: 'easeOut'}}>
           <NewList placeholder={targetList.title} isEdit={isLEdit}/>
         </motion.div>
         </updateListContext.Provider>
@@ -475,6 +498,16 @@ function App() {
           </div>
           </modalContext.Provider>
         )}
+
+        <AnimatePresence>
+        {isTPanel && (
+          <taskListContext.Provider value={taskListContextValue}>
+          <motion.div className="absolute top-0 right-0 z-[1000]" initial={{x: '100vw'}} animate={{x: '0'}} exit={{x: '100vw'}} transition={{type: 'tween', duration:0.5, ease: 'easeOut'}}>
+            <TaskPanel task={targetTask} listId={TaskListID.current}/>
+          </motion.div>
+          </taskListContext.Provider>
+        )}
+        </AnimatePresence>
     </div>
   )
 }

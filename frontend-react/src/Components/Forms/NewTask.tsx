@@ -4,20 +4,48 @@ import TaskInput from "../Inputs/TaskInput";
 import PriorityDropdown from "../PriorityDropdown/PriorityDropdown";
 import TextBox from "../TextBox/TextBox";
 import type { Task, TaskList } from "../types";
-import { useContext, useState } from "react";
-import { createTaskContext, inputContext, type InputContext } from "../contexts";
+import { forwardRef, useContext, useEffect, useState } from "react";
+import { createTaskContext, inputContext, modalContext, type InputContext, type ModalContext } from "../contexts";
 import { Input } from "postcss";
+import { AnimatePresence, motion } from "framer-motion";
+import DenialModal from "../Modals/DenialModal";
+import DatePicker from "react-datepicker";
+import "react-datepicker/dist/react-datepicker.css";
+
+type refProps = {
+    value?: string;
+    onClick?: (e: React.MouseEvent<HTMLButtonElement>) => void;
+    path: string;
+}
+
+const CustomDateButton = forwardRef<HTMLButtonElement, refProps>(({value, onClick, path}, ref) => {
+    if (!value) {
+        return
+    }
+    const parts = value.split('/').map(part => parseInt(part, 10));
+    const dateObject = new Date(parts[2], parts[0] - 1, parts[1]);
+    return <button className={styles.datebutton} onClick={onClick} ref={ref}>
+        <img src={path}></img>
+        <p>{dateObject.getDate()}, {dateObject.toDateString().split(" ")[1].toUpperCase()} {dateObject.getFullYear()}</p>
+    </button>
+})
 
 function NewTask() {
 
-    const [date, setDate] = useState(new Date());
+    const [date, setDate] = useState<Date>(new Date());
     const [name, setNS] = useState("")
     const [description, setDS] = useState("")
     const [priority, setPS] = useState("LOW");
+    const [denial, setDenialModal] = useState(false);
+    const [modalText, setModalText] = useState("");
 
     const cTaskContext = useContext(createTaskContext);
 
     const {sendTask} = cTaskContext;
+
+    const modalDenContextValue: ModalContext = {
+        setState: setDenialModal
+    }
 
     const inputContextValue: InputContext = {
         handleInfo: (info: any, type: string) => {
@@ -35,45 +63,87 @@ function NewTask() {
         }
     }
 
-    const handleDate = (e: React.ChangeEvent<HTMLInputElement>) => {
-        const parts = e.target.value.split('-').map(part => parseInt(part, 10));
-
-        const dateObject = new Date(parts[0], parts[1] - 1, parts[2]);
-        setDate(dt => dt = dateObject);
+    const handleDate = (e:any) => {
+        setDate(dt => dt = e);
     }
 
     const assembleInfo = () => {
+        if (name.trim() == "") {
+            setModalText("O Nome da task é obrigatório!");
+            setDenialModal(true);
+            return;
+        }
+
+        if (!date) {
+            setModalText("A data de conclusão é obrigatória!");
+            setDenialModal(true);
+            return;
+        }
+
+        const now = new Date();
+
+        if (now.getFullYear() > date.getFullYear()) {
+            setModalText("A data deve ser futura!");
+            setDenialModal(true);
+            return;
+        }
+
+        if (now.getMonth() > date.getMonth()) {
+            setModalText("A data deve ser futura!");
+            setDenialModal(true);
+            return;
+        }
+
+        if (now.getDate() > date.getDate()) {
+            setModalText("A data deve ser futura!");
+            setDenialModal(true);
+            return;
+        }
+
+        console.log(date);
         let task: Task = {name, description, id:"", date, priority, finished: false}
         sendTask(task);
     }
 
+    useEffect(() => {
+        let timerId = setTimeout(() => {
+            setDenialModal(false);
+        }, 3000)
+
+        return () => {
+            clearTimeout(timerId);
+        }
+    }, [denial])
+
     return(
+        <>
         <div className={styles.form}>
-            <div onClick={() => sendTask(null)} className="w-fit h-fit">
+            <div onClick={() => sendTask(null)} className="w-[110%] max-md:w-[90%] h-fit items-start">
                 <CloseTaskBtn/>
             </div>
             
-            <div className="w-[474px] h-[606px] flex flex-col space-y-[10px] items-center">
+            <div className="w-[474px] max-md:w-[370px] h-[606px] flex flex-col space-y-[10px] items-center">
                 <inputContext.Provider value={inputContextValue}>
                 <TaskInput placeholder="Qual tarefa você precisa realizar?" />
                 </inputContext.Provider>
-                <hr className="border-0.5 border-bgLight w-[450px]"/>
-                <div className="flex flex-row justify-between w-[450px] items-center">
-                    <p className="text-white font-semibold">Data de conclusão:</p>
-                    <input className={styles.datebutton} type="date" onChange={(e) => handleDate(e)}/>
+                <hr className="border-0.5 border-bgLight w-[450px] max-md:w-[370px]"/>
+                <div className="flex flex-row space-x-[70px] w-[450px] max-md:w-[370px] items-center">
+                    <p className="text-white font-semibold">Data de conclusão: </p>
+                    <DatePicker selected={date} onChange={(e) => handleDate(e)}
+                        customInput={<CustomDateButton path={"/dateicon.svg"}/>} />
                 </div>
-                <div className="flex flex-row justify-between w-[450px] items-center">
+                <div className="flex flex-row justify-between w-[450px] max-md:w-[370px] items-center">
                     <p className="text-white font-semibold">Prioridade:</p>
                     <inputContext.Provider value={inputContextValue}>
                     <PriorityDropdown CurrPriority="LOW" />
                     </inputContext.Provider>
                 </div>
-                <hr className="border-0.5 border-bgLight w-[450px]"/>
+                <hr className="border-0.5 border-bgLight w-[450px] max-md:w-[370px]"/>
                 <p className="text-white font-semibold">Descrição:</p>
                 <inputContext.Provider value={inputContextValue}>
                 <TextBox text="" />
                 </inputContext.Provider>
-                <hr className="border-0.5 border-bgLight w-[450px]"/>
+                <hr className="border-0.5 border-bgLight w-[450px] max-md:w-[370px]"/>
                 <button className="flex space-x-[8px] items-center justify-center bg-lowPrio 
                 w-[150px] h-[36px] rounded-[4px] duration-300 ease-out hover:brightness-75"
                 onClick={assembleInfo}>
@@ -83,6 +153,17 @@ function NewTask() {
                 
             </div>
         </div>
+
+        <AnimatePresence>
+            {denial && (
+            <modalContext.Provider value={modalDenContextValue}>
+            <motion.div className="absolute top-[20px] left-1/2 -translate-x-1/2" initial={{y: '-100%'}} animate={{y: '0'}} exit={{y: '-100%'}} transition={{type: 'tween', duration:0.5, ease: 'easeOut'}}>
+                <DenialModal text={modalText} />
+            </motion.div>
+            </modalContext.Provider>
+            )}
+        </AnimatePresence>
+        </>
     );
     
 }

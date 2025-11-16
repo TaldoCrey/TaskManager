@@ -20,5 +20,5 @@
 }
 
 body {
-  @apply min-h-screen bg-bg font-family-poppins
+  @apply min-h-screen bg-bg font-family-poppins overflow-hidden
 }

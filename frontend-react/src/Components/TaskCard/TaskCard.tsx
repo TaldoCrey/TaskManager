@@ -25,6 +25,7 @@ function TaskCard({taskinfo, listindex}: props) {
     const [finishSVG, setFinishSVG] = useState("/FinishTaskButton.svg")
     const [dateSVG, setDateSVG] = useState("/dateicon.svg");
     const [priorityText, setPText] = useState("");
+    const [mes, setMes] = useState("");
     
     const menuRef = useRef<HTMLDivElement>(null);
     const TaskListContext = useContext(taskListContext);
@@ -38,12 +39,30 @@ function TaskCard({taskinfo, listindex}: props) {
 
     const handleContextMenu = (e: React.MouseEvent) => {
         e.preventDefault();
-        setMenu({visible: true, x:e.clientX, y:e.clientY});
+        setMenu({visible: true, x:e.clientX - 100, y:e.clientY});
     }
 
     const handleCloseMenu = () => {
         setMenu(m => m = {...m, visible: false});
     }
+
+    useEffect(() => {
+        setMes(taskinfo.date.toDateString().split(" ")[1].toUpperCase())
+
+        let now = new Date();
+        if (now.getFullYear() > taskinfo.date.getFullYear()) {
+            setLateState(true);
+        }
+
+        if (now.getMonth() > taskinfo.date.getMonth()) {
+            setLateState(true);
+        }
+
+        if (now.getDate() > taskinfo.date.getDate()) {
+            setLateState(true);
+        }
+
+    }, [taskinfo.date])
 
     useEffect(() => {
         if (!menu.visible) {
@@ -76,7 +95,6 @@ function TaskCard({taskinfo, listindex}: props) {
                 if (taskinfo.finished) {
                     setTKStyle(styles.finishedtaskcard)
                 }
-                
             }
         }
 
@@ -124,12 +142,13 @@ function TaskCard({taskinfo, listindex}: props) {
     return(
         <div>
             <div className={taskCardStyle} onContextMenu={handleContextMenu} 
-            ref={setNodeRef} {...listeners} {...attributes} style={DragStyle}>
-                <div className="w-[429px] h-[40px] flex justify-between items-center">
+            ref={setNodeRef} {...listeners} {...attributes} style={DragStyle} 
+            onClick={() => setState("OPEN_TP", {task:{...taskinfo}, listIndex: listindex})}>
+                <div className="w-[429px] max-md:w-[340px] h-[40px] flex justify-between items-center">
                     <div className={priorityTagStyle}>
                         {priorityText}
                     </div>
-                    <button onDoubleClick={() => setState("FINISHED", {task:{...taskinfo, finished: true}, listIndex: listindex, taskIndex: taskinfo.id})}>
+                    <button>
                         <img src={finishSVG} alt="Finish task Button Image"></img>
                     </button>
                 </div>
@@ -141,7 +160,7 @@ function TaskCard({taskinfo, listindex}: props) {
                 </div>
                 <div className={dateButtonStyle} >
                     <img src={dateSVG} className="w-[16px] h-[16px] mr-[5px] ml-[10px]"></img>
-                    {taskinfo.date.getDate()}, {taskinfo.date.getMonth()} {taskinfo.date.getFullYear()}
+                    {taskinfo.date.getDate()}, {mes} {taskinfo.date.getFullYear()}
                 </div>
             </div>
 

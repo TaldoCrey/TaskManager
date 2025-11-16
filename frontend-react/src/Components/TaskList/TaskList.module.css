@@ -2,8 +2,8 @@
 
 @layer {
     .list {
-        @apply border-1 border-[#4e4e4e] w-[477px] px-[16px] pt-[16px] pb-[24px]
-        rounded-[12px]
+        @apply border-1 border-[#4e4e4e] w-[477px] max-md:w-[390px] px-[16px] pt-[16px] pb-[24px]
+        rounded-[12px] max-md:overflow-hidden
     }
 
     .tasks {
