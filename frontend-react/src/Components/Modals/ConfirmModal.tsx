@@ -12,7 +12,7 @@ function ConfirmModal({text}: props) {
 
     return (
         <div className="w-fit h-fit max-w-[450px] max-md:w-[370px] max-h-[220px] rounded-[12px] border-1 border-white
-        px-[16px] py-[12px] bg-[#252628] space-y-[5px]">
+        px-[16px] py-[12px] bg-[#252628] space-y-[5px] shadow-2xl/30">
             <div className="w-fit h-[24px] flex justify-items-end items-center" onClick={() => setState(false)}>
                 <img src="/closeicon.svg" className="w-[24px] h-[24px]"></img>
             </div>

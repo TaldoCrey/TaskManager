@@ -2,7 +2,7 @@ import styles from "./Form.module.css"
 import type { TaskList } from "../types.ts"
 import ListInput from "../Inputs/ListInput";
 import CloseTaskBtn from "../CloseTaskBtn/CloseTaskBtn.tsx";
-import { useContext, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { createListContext, inputContext, modalContext, updateListContext, type InputContext, type ModalContext } from "../contexts.ts";
 import { AnimatePresence, motion } from "framer-motion";
 import DenialModal from "../Modals/DenialModal.tsx";
@@ -42,6 +42,16 @@ function NewList({placeholder = "Qual o nome da sua lista de afazeres?", isEdit}
             sendList(null)
         }
     }
+
+    useEffect(() => {
+        let timerId = setTimeout(() => {
+            setDenialModal(false);
+        }, 3000)
+
+        return () => {
+            clearTimeout(timerId);
+        }
+    }, [denial])
 
     const assembleInfo = () => {
         if (listTitle.trim() == "") {

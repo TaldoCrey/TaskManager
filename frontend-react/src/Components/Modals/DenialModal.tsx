@@ -12,7 +12,7 @@ function DenialModal({text}: props) {
 
     return(
         <div className="w-[400px] max-md:w-[360px] h-[40px] bg-[#252628] rounded-[12px] border-[0.5px] border-white
-        px-[16px] py-[8px] flex justify-center items-center space-x-[16px] z-[2000]">
+        px-[16px] py-[8px] flex justify-center items-center space-x-[16px] z-[2000] shadow-2xl/30">
             <img src="/warningicon.svg" className="w-[20px] h-[20px]"></img>
             <p className="text-[#AF0505]">{text}</p>
             <button className="w-[16px] h-[16px]" onClick={() => setState(false)}>

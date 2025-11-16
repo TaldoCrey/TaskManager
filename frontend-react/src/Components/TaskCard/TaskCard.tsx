@@ -3,6 +3,7 @@ import React, {useEffect, useState, useRef, useContext} from 'react'
 import type {Task, TaskList} from "../types.ts"
 import { useDraggable } from "@dnd-kit/core";
 import { taskListContext } from "../contexts.ts";
+import * as taskAPI from "../../api/tasks.ts";
 
 type menuProperties = {
     visible: boolean;
@@ -31,7 +32,7 @@ function TaskCard({taskinfo, listindex}: props) {
     const TaskListContext = useContext(taskListContext);
     const {setState} = TaskListContext;
 
-    const {attributes, listeners, setNodeRef, transform} = useDraggable({id: taskinfo.id});
+    const {attributes, listeners, setNodeRef, transform, isDragging} = useDraggable({id: taskinfo.id});
 
     const DragStyle = transform ? {
         transform: `translate(${transform.x}px, ${transform.y}px)`
@@ -101,10 +102,16 @@ function TaskCard({taskinfo, listindex}: props) {
     }, [menu.visible])
 
     useEffect(() => {
+
+
         if (isLate) {
             setTKStyle(styles.latetaskcard);
             setDBStyle(styles.latedatebutton);
             setDateSVG("/latedateicon.svg");
+        } else {
+            setTKStyle(styles.taskcard);
+            setDBStyle(styles.datebutton);
+            setDateSVG("/dateicon.svg")
         }
 
         if (taskinfo.finished) {
@@ -141,7 +148,7 @@ function TaskCard({taskinfo, listindex}: props) {
 
     return(
         <div>
-            <div className={taskCardStyle} onContextMenu={handleContextMenu} 
+            <div className={`${taskCardStyle} ${isDragging ? "cursor-grab" : ""}`} onContextMenu={handleContextMenu} 
             ref={setNodeRef} {...listeners} {...attributes} style={DragStyle} 
             onClick={() => setState("OPEN_TP", {task:{...taskinfo}, listIndex: listindex})}>
                 <div className="w-[429px] max-md:w-[340px] h-[40px] flex justify-between items-center">

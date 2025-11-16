@@ -251,8 +251,8 @@ function App() {
 
   const pointerSensor = useSensor(PointerSensor, {
     activationConstraint: {
-      delay: 80,
-      tolerance: 10
+      delay: 120,
+      tolerance: 0
     }
   });
 

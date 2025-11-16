@@ -3,7 +3,7 @@ import CloseTaskBtn from "../CloseTaskBtn/CloseTaskBtn";
 import TaskInput from "../Inputs/TaskInput";
 import PriorityDropdown from "../PriorityDropdown/PriorityDropdown";
 import TextBox from "../TextBox/TextBox";
-import React, { forwardRef, useContext, useRef, useState } from "react";
+import React, { forwardRef, useContext, useEffect, useRef, useState } from "react";
 import type {Task} from "../types.ts"
 import { inputContext, modalContext, updateTaskContext, type InputContext, type ModalContext } from "../contexts.ts";
 import { AnimatePresence, motion } from "framer-motion";
@@ -105,6 +105,16 @@ function EditTask() {
         let finalTask: Task = {name, description, id: task.id, date, priority, finished: task.finished}
         setTask(finalTask);
     }
+
+    useEffect(() => {
+        let timerId = setTimeout(() => {
+            setDenialModal(false);
+        }, 3000)
+
+        return () => {
+            clearTimeout(timerId);
+        }
+    }, [denial])
 
     return(
         <>
