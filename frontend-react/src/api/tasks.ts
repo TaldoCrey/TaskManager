@@ -1,7 +1,7 @@
 import axios from "axios";
 import type { Task } from "../Components/types";
 
-const API_URL = "http://192.168.15.9:8080/v1/tasks"
+const API_URL = "http://localhost:8080/v1/tasks"
 
 export async function getTaskById(id: string) {
     try {
