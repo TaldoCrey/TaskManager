@@ -22,37 +22,37 @@
 @layer {
     .lowprioritytag {
         @apply py-[4px] px-[12px] bg-lowPrio text-lowPrioText rounded-[4px] font-semibold
-        w-[143px] h-[28px] text-[13px]
+        w-[143px] h-[28px] text-[13px] max-sm:text-[10px] max-sm:w-[120px] max-sm:h-[20px]
     }
 
     .midprioritytag {
         @apply py-[4px] px-[12px] bg-mediumPrio text-mediumPrioText rounded-[4px] font-semibold
-        w-[143px] h-[28px] text-[13px]
+        w-[143px] h-[28px] text-[13px] max-sm:text-[10px] max-sm:w-[120px] max-sm:h-[20px]
     }
 
     .highprioritytag {
         @apply py-[4px] px-[12px] bg-highPrio text-highPrioText rounded-[4px] font-semibold
-        w-[125px] h-[28px] text-[13px]
+        w-[125px] h-[28px] text-[13px] max-sm:text-[10px] max-sm:w-[120px] max-sm:h-[20px]
     }
 
     .veryhighprioritytag {
         @apply py-[4px] px-[12px] bg-veryHighPrio text-veryHighPrioText rounded-[4px] font-semibold
-        w-[170px] h-[28px] text-[13px]
+        w-[170px] h-[28px] text-[13px] max-sm:text-[10px] max-sm:w-[130px] max-sm:h-[20px]
     }
 
     .dropitem {
-        @apply w-[205px] h-[36px] bg-bg  px-[8px] py-[4px] rounded-[4px]
+        @apply w-[205px] max-sm:w-[170px] h-[36px] bg-bg px-[8px] py-[4px] rounded-[4px]
         duration-200 ease-out hover:border-white hover:bg-bgLight hover:border-l-2
         active:bg-[#343333]
     }
 
     .dropdown {
-        @apply w-[205px] h-[36px] border-1 border-[#4e4e4e] rounded-[4px] 
+        @apply w-[205px] max-sm:w-[185px] h-[36px] border-1 border-[#4e4e4e] rounded-[4px] 
             flex justify-between items-center py-[4px] px-[8px] duration-300 ease-out hover:border-white
     }
 
     .dropdownlock {
-        @apply w-[205px] h-[36px] border-1 border-white rounded-[4px] 
+        @apply w-[205px] max-sm:w-[185px] h-[36px] border-1 border-white rounded-[4px] 
             flex justify-between items-center py-[4px] px-[8px]
     }
 }

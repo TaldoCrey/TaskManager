@@ -151,7 +151,7 @@ function TaskCard({taskinfo, listindex}: props) {
             <div className={`${taskCardStyle} ${isDragging ? "cursor-grab" : ""}`} onContextMenu={handleContextMenu} 
             ref={setNodeRef} {...listeners} {...attributes} style={DragStyle} 
             onClick={() => setState("OPEN_TP", {task:{...taskinfo}, listIndex: listindex})}>
-                <div className="w-[429px] max-md:w-[340px] h-[40px] flex justify-between items-center">
+                <div className="w-[429px] max-md:w-[340px] h-[40px] max-sm:w-[280px] flex justify-between max-sm:justify-start max-sm:space-x-[10px] items-center">
                     <div className={priorityTagStyle}>
                         {priorityText}
                     </div>
@@ -166,7 +166,8 @@ function TaskCard({taskinfo, listindex}: props) {
                     </p>
                 </div>
                 <div className={dateButtonStyle} >
-                    <img src={dateSVG} className="w-[16px] h-[16px] mr-[5px] ml-[10px]"></img>
+                    <img src={dateSVG} className="w-[16px] h-[16px] mr-[5px] ml-[10px] max-sm:w-[10px]
+                    max-sm:h-[10px] max-sm:mr-[3px] max-sm:ml-[5px]"></img>
                     {taskinfo.date.getDate()}, {mes} {taskinfo.date.getFullYear()}
                 </div>
             </div>

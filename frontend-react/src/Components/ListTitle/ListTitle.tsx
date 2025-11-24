@@ -54,7 +54,7 @@ function ListTitle({title, listId}: props) {
 
     return(
         <div>
-            <div className="w-[445px] max-md:w-[350px] h-[48px] flex justify-between items-center py-[8px]"
+            <div className="w-[445px] max-md:w-[350px] max-sm:w-[280px] h-[48px] flex justify-between items-center py-[8px]"
              onContextMenu={handleContextMenu}>
                 <h2 className="text-white font-semibold text-[19px]">{title}</h2>
                 <div onClick={handleContextMenu}>

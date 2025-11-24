@@ -22,7 +22,7 @@
 @layer {
     .form {
         @apply flex flex-col w-[608px] max-md:w-[101vw] min-h-[100vh] border-l-1 border-white pt-[40px] pl-[40px]
-        max-md:pl-[20px] space-y-[12px] max-md:space-x-[40px] items-center
+        max-md:pl-[20px] max-sm:pl-[8px] space-y-[12px] max-md:space-x-[40px] items-center
         z-[2000] bg-bg
     }
 

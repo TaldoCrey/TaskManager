@@ -73,7 +73,7 @@ function NewList({placeholder = "Qual o nome da sua lista de afazeres?", isEdit}
     return(
         <>
         <div className={styles.form}>
-            <div onClick={nullReturn} className="w-[105%] max-md:w-[90%] h-fit items-start">
+            <div onClick={nullReturn} className="w-[105%] max-md:w-[90%] max-sm:w-[85%] h-fit items-start">
                 <CloseTaskBtn/>
             </div>
             <div className="w-[474px] max-md:w-[200px] h-[606px] flex flex-col space-y-[10px] items-center">

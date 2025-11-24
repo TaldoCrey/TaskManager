@@ -3,8 +3,8 @@ import styles from "./Navbar.module.css"
 function Navbar() {
 
     return(
-        <div className="bg-linear-to-r from-bgLight to-bg w-fill max-md:w-[430px] h-[84px] border-b-1 border-[#4e4e4e]
-        flex flex-row justify-between px-[80px] max-md:px-[40px] py-[12px] items-center">
+        <div className="bg-linear-to-r from-bgLight to-bg w-fill max-md:w-[430px] max-sm:w-[330px] h-[84px] border-b-1 border-[#4e4e4e]
+        flex flex-row justify-between px-[80px] max-md:px-[40px] max-sm:px-[20px] py-[12px] items-center">
             <div>
                 <h1 className="font-extrabold text-white shadow-2xl/30 text-[18px]">TaskManager</h1>
             </div>

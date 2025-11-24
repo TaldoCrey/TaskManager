@@ -11,7 +11,7 @@ function SuccessModal({text}: props) {
     const {setState} = Context;
 
     return(
-        <div className="w-fit max-md:w-[360px] h-[40px] bg-[#252628] rounded-[12px] border-[0.5px] border-white
+        <div className="w-fit max-md:w-[360px] max-sm:w-[280px] h-[40px] bg-[#252628] rounded-[12px] border-[0.5px] border-white
         px-[16px] py-[8px] flex justify-center items-center space-x-[16px] z-[2000] shadow-2xl/30">
             <img src="/successicon.svg" className="w-[20px] h-[20px]"></img>
             <p className="text-[#029007]">{text}</p>

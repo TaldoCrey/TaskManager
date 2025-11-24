@@ -80,7 +80,7 @@ function TaskPanel({task, listId}: props) {
 
     return(
         <div className={styles.form}>
-            <div className="w-[95%] max-md:w-[90%] h-fit items-start flex justify-between">
+            <div className="w-[95%] max-md:w-[90%] max-sm:w-[85%] h-fit items-start flex justify-between">
                 <div onClick={() => setState("EXIT", null)} className="w-fit h-fit">
                     <CloseTaskBtn/>
                 </div>
@@ -88,28 +88,28 @@ function TaskPanel({task, listId}: props) {
                     <img src={finishSVG} alt="Finish task Button Image"></img>
                 </button>
             </div>
-            <div className="w-[474px] max-md:w-[370px] h-[606px] flex flex-col space-y-[10px] items-center">
+            <div className="w-[474px] max-md:w-[370px] max-sm:w-[280px] h-[606px] flex flex-col space-y-[10px] items-center">
                 <p className="text-white font-bold text-[26px]">{task.name}</p>
-                <hr className="border-0.5 border-bgLight w-[450px] max-md:w-[370px]"/>
-                <div className="flex flex-row justify-between w-[450px] max-md:w-[370px] items-center">
+                <hr className="border-0.5 border-bgLight w-[450px] max-md:w-[370px] max-sm:w-[280px]"/>
+                <div className="flex flex-row justify-between w-[450px] max-md:w-[370px] max-sm:w-[280px] items-center">
                     <p className="text-white font-semibold">Data:</p>
                     <div className={dateButtonStyle} >
                         <img src={dateSVG} className="w-[16px] h-[16px] mr-[5px] ml-[10px]"></img>
                         {task.date.getDate()}, {task.date.toDateString().split(" ")[1].toUpperCase()} {task.date.getFullYear()}
                     </div>
                 </div>
-                <div className="flex flex-row justify-between w-[450px] max-md:w-[370px] items-center">
+                <div className="flex flex-row justify-between w-[450px] max-md:w-[370px] max-sm:w-[280px] items-center">
                     <p className="text-white font-semibold">Prioridade:</p>
                     <div className={priorityTagStyle}>
                         {priorityText}
                     </div>
                 </div>
-                <hr className="border-0.5 border-bgLight w-[450px] max-md:w-[370px]"/>
+                <hr className="border-0.5 border-bgLight w-[450px] max-md:w-[370px] max-sm:w-[280px]"/>
                 <p className="text-white font-semibold">Descrição:</p>
-                <p className="w-[450px] max-md:w-[370px] h-[105px] text-white text-start">
+                <p className="w-[450px] max-md:w-[370px]  max-sm:w-[280px] h-[105px] text-white text-start">
                     {task.description}
                 </p>
-                <hr className="border-0.5 border-bgLight w-[450px] max-md:w-[370px]"/>
+                <hr className="border-0.5 border-bgLight w-[450px] max-md:w-[370px] max-sm:w-[280px]"/>
                 <button className="flex justify-center items-center p-[8px] w-fit h-fit space-x-[8px] ml-3
                 duration-200 ease-in-out hover:bg-bgLight rounded-[10px]"
                 onClick={() => setState("DEL_TASK", {taskId: task.id, listId, taskName: task.name})}>

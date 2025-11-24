@@ -99,7 +99,7 @@ function PriorityDropdown({CurrPriority = "LOW"}: props) {
 
             {dropdown.visible && (
                 <div ref={dropRef} style={{position: 'fixed', top:`${dropdown.y}px`, left: `${dropdown.x}px`, zIndex:1000}}
-                className="border-1 border-gray rounded-[4px]">
+                className="border-1 border-gray rounded-[4px] max-sm:w-[170px]">
                     <ul>
                         <div className={styles.dropitem} onClick={() => {handleOptionClick('LOW');}}>
                         <li className={styles.lowprioritytag}>Baixa Prioridade</li>

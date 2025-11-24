@@ -21,28 +21,28 @@
 
 @layer {
     .taskcard {
-        @apply w-[445px] max-md:w-[360px] h-[221px] border-1 border-[#4E4E4E]
+        @apply w-[445px] max-md:w-[360px] max-sm:w-[280px] h-[221px] border-1 border-[#4E4E4E]
         rounded-[8px] hover:border-white flex flex-col space-y-[12px]
         py-[8px] px-[8px]
         duration-300 ease-out hover:bg-linear-to-r from-[#232323] to-[#393939]
     }
 
     .latetaskcard {
-        @apply w-[445px] max-md:w-[360px] h-[221px] border-1 border-[#4E4E4E]
+        @apply w-[445px] max-md:w-[360px] max-sm:w-[280px] h-[221px] border-1 border-[#4E4E4E]
         rounded-[8px] hover:border-white flex flex-col space-y-[12px]
         py-[8px] px-[8px]
         duration-300 ease-out hover:bg-linear-to-r from-[#553434] to-[#381D1D]
     }
 
     .finishedtaskcard {
-        @apply w-[445px] max-md:w-[360px] h-[221px] border-1 border-[#4E4E4E]
+        @apply w-[445px] max-md:w-[360px] max-sm:w-[280px] h-[221px] border-1 border-[#4E4E4E]
         rounded-[8px] hover:border-white flex flex-col space-y-[12px]
         py-[8px] px-[8px] brightness-[0.60]
         duration-300 ease-out hover:bg-linear-to-r from-[#232323] to-[#393939]
     }
 
     .finishedlatetaskcard {
-        @apply w-[445px] max-md:w-[360px] h-[221px] border-1 border-[#4E4E4E]
+        @apply w-[445px] max-md:w-[360px] max-sm:w-[280px] h-[221px] border-1 border-[#4E4E4E]
         rounded-[8px] hover:border-white flex flex-col space-y-[12px]
         py-[8px] px-[8px] brightness-[0.60]
         duration-300 ease-out hover:bg-linear-to-r from-[#553434] to-[#381D1D]
@@ -50,32 +50,32 @@
 
     .lowprioritytag {
         @apply py-[4px] px-[12px] bg-lowPrio text-lowPrioText rounded-[4px] font-semibold
-        w-[143px] h-[28px] text-[13px]
+        w-[143px] h-[28px] text-[13px] max-sm:text-[10px] max-sm:w-[120px] max-sm:h-[20px]
     }
 
     .midprioritytag {
         @apply py-[4px] px-[12px] bg-mediumPrio text-mediumPrioText rounded-[4px] font-semibold
-        w-[143px] h-[28px] text-[13px]
+        w-[143px] h-[28px] text-[13px] max-sm:text-[10px] max-sm:w-[120px] max-sm:h-[20px]
     }
 
     .highprioritytag {
         @apply py-[4px] px-[12px] bg-highPrio text-highPrioText rounded-[4px] font-semibold
-        w-[125px] h-[28px] text-[13px]
+        w-[125px] h-[28px] text-[13px] max-sm:text-[10px] max-sm:w-[120px] max-sm:h-[20px]
     }
 
     .veryhighprioritytag {
         @apply py-[4px] px-[12px] bg-veryHighPrio text-veryHighPrioText rounded-[4px] font-semibold
-        w-[160px] h-[28px] text-[13px]
+        w-[160px] h-[28px] text-[13px] max-sm:text-[10px] max-sm:w-[130px] max-sm:h-[20px]
     }
 
     .datebutton {
-        @apply w-[126px] h-[28px] border-none rounded-[4px] bg-[#E0E0E0]
-        mt-[4px] font-semibold text-[#646570] text-[13px] flex flex-row items-center
+        @apply w-[136px] max-sm:w-[110px] h-[28px] border-none rounded-[4px] bg-[#E0E0E0]
+        mt-[4px] font-semibold text-[#646570] text-[15px] max-sm:text-[8px] flex flex-row items-center
     }
 
     .latedatebutton {
-        @apply w-[126px] h-[28px] border-none rounded-[4px] bg-[#DDA9A9]
-        mt-[4px] font-semibold text-[#AF0505] text-[13px] flex flex-row items-center
+        @apply w-[136px] max-sm:w-[110px] h-[28px] border-none rounded-[4px] bg-[#DDA9A9]
+        mt-[4px] font-semibold text-[#AF0505] text-[15px] max-sm:text-[8px] flex flex-row items-center
     }
 
     .menu {
@@ -84,13 +84,13 @@
     }
 
     .taskcardlock {
-        @apply w-[445px] max-md:w-[360px] h-[221px] border-1
+        @apply w-[445px] max-md:w-[360px] max-sm:w-[280px] h-[221px] border-1
         rounded-[8px] border-white flex flex-col space-y-[12px]
         py-[8px] px-[8px] bg-linear-to-r from-[#232323] to-[#393939]
     }
 
     .latetaskcardlock {
-        @apply w-[445px] max-md:w-[360px] h-[221px] border-1 border-white
+        @apply w-[445px] max-md:w-[360px] max-sm:w-[280px] h-[221px] border-1 border-white
         rounded-[8px] flex flex-col space-y-[12px] bg-linear-to-r from-[#553434] to-[#381D1D]
         py-[8px] px-[8px]
     }

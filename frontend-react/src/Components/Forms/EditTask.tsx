@@ -119,31 +119,31 @@ function EditTask() {
     return(
         <>
             <div className={styles.form}>
-                <div onClick={() => setTask(null)} className="w-[105%] max-md:w-[90%] h-fit items-start">
-                <CloseTaskBtn/>
+                <div onClick={() => setTask(null)} className="w-[105%] max-md:w-[90%] max-sm:w-[85%] h-fit items-start">
+                    <CloseTaskBtn/>
                 </div>
-                <div className="w-[474px] max-md:w-[370px] h-[606px] flex flex-col space-y-[10px] items-center">
+                <div className="w-[474px] max-md:w-[370px] max-sm:w-[280px] h-[606px] flex flex-col space-y-[10px] items-center">
                     <inputContext.Provider value={inputContextValue}>
                     <TaskInput placeholder={task.name}/>
                     </inputContext.Provider>
-                    <hr className="border-0.5 border-bgLight w-[450px] max-md:w-[370px]"/>
-                    <div className="flex flex-row space-x-[70px] w-[450px] max-md:w-[370px] items-center">
+                    <hr className="border-0.5 border-bgLight w-[450px] max-md:w-[370px] max-sm:w-[280px]"/>
+                    <div className="flex flex-row space-x-[70px] w-[450px] max-md:w-[370px] max-sm:w-[280px] items-center">
                         <p className="text-white font-semibold">Data de conclusão: </p>
                         <DatePicker selected={date} onChange={(e) => handleDate(e)}
                             customInput={<CustomDateButton path={"/dateicon.svg"}/>} />
                     </div>
-                    <div className="flex flex-row justify-between w-[450px] max-md:w-[370px] items-center">
+                    <div className="flex flex-row justify-between w-[450px] max-md:w-[370px] max-sm:w-[280px] items-center">
                         <p className="text-white font-semibold">Prioridade:</p>
                         <inputContext.Provider value={inputContextValue}>
                         <PriorityDropdown CurrPriority={task.priority} />
                         </inputContext.Provider>
                     </div>
-                    <hr className="border-0.5 border-bgLight w-[450px] max-md:w-[370px]"/>
+                    <hr className="border-0.5 border-bgLight w-[450px] max-md:w-[370px] max-sm:w-[280px]"/>
                     <p className="text-white font-semibold">Descrição:</p>
                     <inputContext.Provider value={inputContextValue}>
                     <TextBox text={task.description} />
                     </inputContext.Provider>
-                    <hr className="border-0.5 border-bgLight w-[450px] max-md:w-[370px]"/>
+                    <hr className="border-0.5 border-bgLight w-[450px] max-md:w-[370px] max-sm:w-[280px]"/>
                     <button className="flex space-x-[8px] items-center justify-center bg-lowPrio 
                     w-[150px] h-[36px] rounded-[4px] duration-300 ease-out hover:brightness-75"
                     onClick={assembleInfo}>
