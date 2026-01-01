@@ -1,11 +1,9 @@
-import axios from "axios";
 import type { Task } from "../Components/types";
-
-const API_URL = "http://192.168.0.117:8080/v1/tasks"
+import api from './axios.ts';
 
 export async function getTaskById(id: string) {
     try {
-        const response = await axios.get(`${API_URL}/${id}`)
+        const response = await api.get(`/v1/tasks/${id}`)
 
         console.log("Data arrived: ", response.data);
         return response.data;
@@ -23,7 +21,7 @@ export async function createTask(task: Task, listId: string) {
         listId: listId
     };
     try {
-        const response = await axios.post(API_URL, postData);
+        const response = await api.post(`/v1/tasks`, postData);
 
         console.log("Response:", response);
         return response.data;
@@ -54,7 +52,7 @@ export async function updateTask(task: Task, finish: boolean, listId: string) {
         putData = {...putData, listId: listId};
     }
     try {
-        const response = await axios.put(`${API_URL}/${task.id}`, putData);
+        const response = await api.put(`/v1/tasks/${task.id}`, putData);
 
         console.log("Response:", response);
         return response;
@@ -65,7 +63,7 @@ export async function updateTask(task: Task, finish: boolean, listId: string) {
 
 export async function deleteTaskById(id: string) {
     try {
-        const response = await axios.delete(`${API_URL}/${id}`)
+        const response = await api.delete(`/v1/tasks/${id}`)
 
         console.log("Data arrived: ", response.data);
         return response;

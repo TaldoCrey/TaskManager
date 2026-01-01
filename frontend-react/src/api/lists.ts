@@ -1,11 +1,9 @@
-import axios from "axios";
 import type { TaskList } from "../Components/types";
-
-const API_URL = "http://192.168.0.117:8080/v1/lists"
+import api from './axios.ts'
 
 export async function getLists() {
     try {
-        const response = await axios.get(API_URL)
+        const response = await api.get(`/v1/lists`)
 
         console.log("Data arrived: ", response);
         return response.data;
@@ -16,7 +14,7 @@ export async function getLists() {
 
 export async function getListById(id: "string") {
     try {
-        const response = await axios.get(`${API_URL}/${id}`)
+        const response = await api.get(`/v1/lists/${id}`)
 
         console.log("Data arrived: ", response);
         return response.data;
@@ -30,7 +28,7 @@ export async function createList(list: TaskList) {
         listname: list.title
     }
     try {
-        const response = await axios.post(API_URL, postData);
+        const response = await api.post(`/v1/lists`, postData);
 
         console.log("Data arrived: ", response);
         return response;
@@ -44,7 +42,7 @@ export async function editList(list: TaskList) {
         listname: list.title
     }
     try {
-        const response = await axios.put(`${API_URL}/${list.id}`, postData)
+        const response = await api.put(`/v1/lists/${list.id}`, postData)
 
         console.log("Data arrived: ", response);
         return response;
@@ -55,7 +53,7 @@ export async function editList(list: TaskList) {
 
 export async function deleteListById(id: string) {
     try {
-        const response = await axios.delete(`${API_URL}/${id}`)
+        const response = await api.delete(`/v1/lists/${id}`)
 
         console.log("Data arrived: ", response);
         return response;
